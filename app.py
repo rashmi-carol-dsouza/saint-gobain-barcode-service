@@ -10,5 +10,6 @@ def index():
 def landingpage():
     return render_template("landing-page.html")
 
+
 if __name__ == "__main__":
     app.run(debug=True)
