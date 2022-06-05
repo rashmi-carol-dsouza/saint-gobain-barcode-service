@@ -359,7 +359,7 @@ $(function () {
         tt = new bootstrap.Toast($("#notification"));
         tt.hide();
         $("#msg").text(`Scanned: ${code}`);
-        tt.show();
+        // tt.show();
       });
     }
   });
