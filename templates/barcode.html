@@ -4,15 +4,26 @@
 <h1>Scan a barcode</h1>
 <div></div>
 
-<div id="notification" class="toast align-items-center text-primary bg-light" delay="300" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-      <div class="toast-body" id="msg">
+<div
+  id="notification"
+  class="toast align-items-center text-primary bg-light"
+  delay="300"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+>
+  <div class="d-flex">
+    <div class="toast-body" id="msg">
       Hello, world! This is a toast message.
-     </div>
-      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
+    <button
+      type="button"
+      class="btn-close me-2 m-auto"
+      data-bs-dismiss="toast"
+      aria-label="Close"
+    ></button>
   </div>
-
+</div>
 
 <div class="controls" class="input-group mb-3">
   <fieldset class="input-group form-group">
@@ -36,8 +47,8 @@
         <option value="code_93">Code 93</option>
       </select>
     </label>
-    <label>
-      <span>Resolution (width)</span>
+    <!-- <label> -->
+    <!-- <span>Resolution (width)</span>
       <select name="input-stream_constraints" class="form-select form-select-sm">
         <option value="320x240">320px</option>
         <option selected="selected" value="640x480">640px</option>
@@ -85,16 +96,18 @@
     </label>
   </fieldset>
 </div>
-<div id="interactive" class="viewport"></div>
+<div id="interactive" class="viewport"></div> -->
 
-<script
-  src="{{ url_for('static', filename='js/jquery-1.9.0.min.js') }}"
-  type="text/javascript"
-></script>
-<script
-  src="//webrtc.github.io/adapter/adapter-latest.js"
-  type="text/javascript"
-></script>
-<script src="{{ url_for('static', filename='js/quagga.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
-{% endblock %}
+    <script
+      src="{{ url_for('static', filename='js/jquery-1.9.0.min.js') }}"
+      type="text/javascript"
+    ></script>
+    <script
+      src="//webrtc.github.io/adapter/adapter-latest.js"
+      type="text/javascript"
+    ></script>
+    <script src="{{ url_for('static', filename='js/quagga.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% endblock %}
+  </fieldset>
+</div>
