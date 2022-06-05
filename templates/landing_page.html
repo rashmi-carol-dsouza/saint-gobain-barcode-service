@@ -1,19 +1,18 @@
-{% extends "base.html" %}
-
-{% block head %}
-<title> DigiGobain</title>
-{% endblock %}
-
-
-{% block body %}
-<h1>  DigiGobain</h1>
-  <img src="{{url_for('static',filename='images/logo.png')}}"
-       alt="Saint Gobain Logo"
-       width="200px" />
-
-<div>
-    <a href="/scan">Product</a>
-    <a href="/view_scans">Machine</a>
-
+{% extends "base.html" %} {% block head %}
+<title>Saint Gobain - Digital Swiss Knife</title>
+{% endblock %} {% block body %}
+<div class="text-center main">
+  <h1>Saint Gobain - Digital Swiss Knife</h1>
+  <img
+    src="{{url_for('static',filename='images/logo.png')}}"
+    alt="Saint Gobain Logo"
+    width="200px"
+  />
+  <div class="row front-heros">
+    <div class="feature col-sm">
+      <a href="/scan">Scan Products</a>
+    </div>
+    <div class="feature col-sm"><a href="/scans">View Machines</a></div>
+  </div>
 </div>
 {% endblock %}

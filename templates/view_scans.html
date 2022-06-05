@@ -3,16 +3,20 @@
 {% endblock %} {% block body %}
 <h1>Bar Code Scanner</h1>
 <table class="table">
-  <tr>
-    <th>Bar Code ID</th>
-    <th>Timestamp</th>
-  </tr>
-  {% for barcode in barcodes%}
-  <tr>
-    <td>{{barcode.barcode}}</td>
-    <td>{{barcode.date_created}}</td>
-  </tr>
-  {% endfor %}
+  <thead>
+    <tr>
+      <th>Bar Code ID</th>
+      <th>Timestamp</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for barcode in barcodes%}
+    <tr>
+      <td>{{barcode.barcode}}</td>
+      <td>{{barcode.date_created}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
 </table>
 
 {% endblock %}
