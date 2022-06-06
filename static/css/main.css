@@ -11,4 +11,9 @@ body{
         }
         .cancelbtn {
           width: 100%;
-        }
+        }}
+
+ @font-face {
+  font-family: AristotelicaSmallCaps;
+  src: url(../fonts/AristotelicaSmallCaps-Regular.ttf);
+}

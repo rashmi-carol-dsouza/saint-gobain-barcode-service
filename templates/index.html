@@ -1,5 +1,9 @@
 <html>
   <head>
+  <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='css/main.css')}}"
+    />
     <body
       style="
         background-image: linear-gradient(to right, #1c4184 0%, #522b58 100%);
@@ -11,9 +15,9 @@
       body {
         font-family: Arial, Helvetica, sans-serif;
       }
-      form {
-        border: 3px solid #f1f1f1;
-      }
+<!--      form {-->
+<!--        border: 3px solid #f1f1f1;-->
+<!--      }-->
 
       input[type="text"],
       input[type="password"] {
@@ -77,7 +81,7 @@
     </style>
   </head>
   <body>
-    <form action="/action_page.php" method="post">
+    <form action="/landing_page" method="post">
       <div class="imgcontainer">
         <img
           src="{{url_for('static',filename='images/logo.png')}}"
@@ -85,7 +89,7 @@
           class="avatar"
         />
       </div>
-
+      <h1 style="text-align:center;color:white;font-family:AristotelicaSmallCaps;font-weight:normal">Digi-Gobain</h1>
       <div class="container">
         <label for="uname"><b>Username</b></label>
         <input
@@ -102,15 +106,13 @@
           name="psw"
           required=""
         />
+          <button>Login</button>
 
-        <button type="submit">Login</button>
-        <div class="feature col-sm">
-          <a href="/landing_page">Login</a>
         </div>
-        <label>
-          <input type="checkbox" checked="checked" name="remember" /> Remember
-          me
-        </label>
+<!--        <label>-->
+<!--          <input type="checkbox" checked="checked" name="remember" /> Remember-->
+<!--          me-->
+<!--        </label>-->
       </div>
       <!-- 
       <div class="container" style="background-color: #f1f1f1">

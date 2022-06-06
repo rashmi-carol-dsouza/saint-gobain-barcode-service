@@ -22,7 +22,7 @@ def index():
     return render_template("index.html")
 
 
-@app.route('/landing_page')
+@app.route('/landing_page', methods=["POST", "GET"])
 def landing_page():
     return render_template("landing_page.html")
 
