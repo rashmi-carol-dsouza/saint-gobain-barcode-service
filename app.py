@@ -8,14 +8,17 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///test.db"
 db = SQLAlchemy(app)
 
-
+@dataclass
 class Barcode(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    barcode = db.Column(db.String(200), nullable=False)
+    id = db.Column(db.String(200), primary_key=True)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
+    production_line = db.Column(db.String(200), nullable=False)
+
+    def to_dict(self):
+        return {c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs}
 
     def __repr__(self):
-        return '<Task %r' % self.id
+        return '<Barcode %r' % self.id
 
 
 @app.route('/')
@@ -38,16 +41,39 @@ def view_scans():
 def scan():
     if request.method == "POST":
         scanned_barcode = request.form["barcode"]
-        new_scan = Barcode(barcode=scanned_barcode)
+        production_line = request.form["productionLine"]
+        new_scan = Barcode(id=scanned_barcode)
         try:
             db.session.add(new_scan)
             db.session.commit()
+            return make_response(jsonify([{'msg': "success"}]), 201)
             return redirect("/")
-        except:
+        except Exception as inst:
+            print(inst)
             return "There was an issue adding the code"
     else:
         return render_template("barcode.html")
 
+@app.route('/barcodes', methods=["POST", "GET"])
+def barcode():
+    if request.method == "POST":
+        scanned_barcode = request.form["barcode"]
+        production_line = request.form["productionLine"]
+        new_scan = Barcode(id=scanned_barcode,production_line=production_line)
+        try:
+            db.session.add(new_scan)
+            db.session.commit()
+            last_added_barcode = Barcode.query.get(scanned_barcode)
+            return make_response(jsonify(last_added_barcode.to_dict()), 201)
+        except Exception as inst:
+            print(inst)
+            return "There was an issue adding the code"
+    else:
+        all_barcodes = Barcode.query.all()
+        barcodes = []
+        for barcode in all_barcodes:
+            barcodes.append(barcode.to_dict())
+        return jsonify(barcodes)
 
 if __name__ == "__main__":
     app.run(debug=True)
