@@ -351,7 +351,7 @@ $(function () {
       var request = $.ajax({
         url: "/scan",
         method: "POST",
-        data: { barcode: code },
+        data: { barcode: code, productionLine: 1 },
         dataType: "json",
       });
 
