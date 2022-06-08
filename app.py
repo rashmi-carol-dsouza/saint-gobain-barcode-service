@@ -42,7 +42,7 @@ def scan():
     if request.method == "POST":
         scanned_barcode = request.form["barcode"]
         production_line = request.form["productionLine"]
-        new_scan = Barcode(id=scanned_barcode)
+        new_scan = Barcode(id=scanned_barcode,production_line=production_line)
         try:
             db.session.add(new_scan)
             db.session.commit()

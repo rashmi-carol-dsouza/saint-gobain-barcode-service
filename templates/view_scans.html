@@ -7,13 +7,15 @@
     <tr>
       <th>Bar Code ID</th>
       <th>Timestamp</th>
+      <th>Production Line</th>
     </tr>
   </thead>
   <tbody>
     {% for barcode in barcodes%}
     <tr>
-      <td>{{barcode.barcode}}</td>
+      <td>{{barcode.id}}</td>
       <td>{{barcode.date_created}}</td>
+      <td>{{barcode.production_line}}</td>
     </tr>
     {% endfor %}
   </tbody>
