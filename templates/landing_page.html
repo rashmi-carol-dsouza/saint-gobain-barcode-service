@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block head %}
-<meta name="viewport" content="width=device-width">
+<meta name="viewport" content="width=device-width" />
 <div class="text-center main">
-<!--  <h1>Saint Gobain - Digital Swiss Knife</h1>-->
+  <!--  <h1>Saint Gobain - Digital Swiss Knife</h1>-->
 
   <img
     src="{{url_for('static',filename='images/logo.png')}}"
@@ -10,9 +10,19 @@
   />
   <div class="row front-heros">
     <div class="feature col-sm">
-      <a href="/scan">Products</a>
+      <select name="Products"  onchange="window.open(this.options[this.selectedIndex].value)">
+        <a href="/scans"><option value="Products Line ID 1">
+          Products Line ID 1 </option></a>
+        <option value="/scans">Products Line ID 2</a></option>
+        <option value="/scans" selected>Products Line ID 3</option>
+        <option value="/scans">Products Line ID 4</option>
+        <option value="/scans">Products Line ID 5</option>
+        <option value="/scans">Products Line ID 6</option>
+      </select>
     </div>
     <div class="feature col-sm"><a href="/scans">Machine</a></div>
   </div>
 </div>
 {% endblock %}
+
+
