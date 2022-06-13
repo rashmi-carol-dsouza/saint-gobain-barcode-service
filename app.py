@@ -1,5 +1,5 @@
-from datetime import datetime
 from dataclasses import dataclass
+import os
 from flask import Flask, render_template, request, redirect, make_response, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import inspect
@@ -7,6 +7,9 @@ from sqlalchemy import inspect
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///test.db"
 db = SQLAlchemy(app)
+env_config = os.getenv("APP_SETTINGS", "config.DevelopmentConfig")
+app.config.from_object(env_config)
+
 
 @dataclass
 class Barcode(db.Model):
