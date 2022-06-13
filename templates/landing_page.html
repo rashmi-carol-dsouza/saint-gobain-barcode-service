@@ -6,11 +6,17 @@
   <img
     src="{{url_for('static',filename='images/logo.png')}}"
     alt="Saint Gobain Logo"
-    width="200px"
+    width="300px"
   />
   <div class="row front-heros">
-    <div class="feature col-sm">
+    <div class="feature col-sm" >
+        <img
+      src="{{url_for('static',filename='images/logo.png')}}"
+      alt="Avatar"
+      class="avatar"
+      width="200" height="150">
         <select name="Products Lind ID" onchange="window.location.href=this.options[selectedIndex].value">
+          class="feature col-sm" ><a href="/scan">
         <option value="#"> Products Line ID </a></option>
         <option value="/PL1" >Products Line ID 1 </a></option>
         <option value="/PL2" selected>Products Line ID 2</a></option>
@@ -19,10 +25,12 @@
         <option value="/scan">Products Line ID 5</a></option>
       </select>
     </div>
-    <div class="feature col-sm"><a href="/scan">Machine</a></div>
+    <div class="feature col-sm" ><a href="/scan"><img
+      src="{{url_for('static',filename='images/logo.png')}}"
+      alt="Avatar"
+      class="avatar"
+      width="200" height="150"></a></div>
   </div>
+  
 </div>
 {% endblock %}
-
-
-
