@@ -4,20 +4,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
-form {border: 3px solid #f1f1f1 align="center";}
+form {border: 3px solid #f1f1f1;}
 
-input[type=text], input[type=password] {
-  width: 300px;  
-  height: 30px;
-  border: none;  
-  border-radius: 3px;  
-  padding-left: 8px;
+#grad {
+  background-image: linear-gradient(to right, #522B5B , #1C4184);
+}
+
+input[type=text]{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
   border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 25px;
+}
+
+input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
   border-radius: 25px;
 }
 
 button {
-  background-color: #E5E5E5;
+  background-color: #FFFFFF;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -36,16 +50,25 @@ button:hover {
   width: auto;
   padding: 10px 18px;
   background-color: #f44336;
-}
+} 
+
 
 .imgcontainer {
   text-align: center;
   margin: 24px 0 12px 0;
 }
 
+.imgcontainer2 {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+
 img.avatar {
+  width: 60%;
+}
+
+img.avatar2 {
   width: 40%;
-  border-radius: 50%;
 }
 
 .container {
@@ -70,34 +93,32 @@ span.psw {
 </style>
 </head>
 <body>
-
-<h2>Login</h2>
-
 <form action="/action_page.php" method="post">
-  <div class="imgcontainer" style="background-color:#1C4184">
-    <img src="D:\Downloads\Mask group.png" alt="Avatar" class="avatar">
-  </div>
+<div class="container" id="grad">
 
-  <div class="container" align="center">
-    <label for="uname"><b> </b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
+  <div class="imgcontainer" align="center" style="margin-top:200px;">
+    <img src="D:\Downloads\Mask group (1).png" alt="Avatar" class="avatar">
+    <img src="D:\HTW MPMD\Sem 2\PM\digigobain.png" alt="Avatar2" class="avatar2"> 
+ </div>
 
-    <label for="psw"><b> </b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
+  <div class="container" style="margin-top:130px;">
+    <!-- <label for="uname"><b>Username</b></label> -->
+    <input style="background-color: white" type="text" placeholder="Username" name="uname" required>
+
+    <!-- <label for="psw"><b>Password</b></label> -->
+    <input style="background-color: white" type="password" placeholder="Password" name="psw" required>
         
-    <button type="submit">Login</button>
-    <label>
+    <button type="submit" p style="color:#1C4184" >Login</button>
+   <!-- <label>
       <input type="checkbox" checked="checked" name="remember"> Remember me
-    </label>
-  </div>
+    </label> -->
+  </div> 
 
-  <div class="container" style="background-color:#f1f1f1">
-    <!-- <button type="button" class="cancelbtn">Cancel</button> -->
-    <!-- <span class="psw">Forgot <a href="#">password?</a></span> -->
-  </div>
+  <!--  <div class="container" style="background-color:#f1f1f1">
+     <button type="button" class="cancelbtn">Cancel</button> 
+     <span class="psw">Forgot <a href="#">password?</a></span> 
+  </div> -->
 </form>
-
+</div>
 </body>
 </html>
-
-<! -- and -->
