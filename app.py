@@ -1,14 +1,15 @@
-from dataclasses import dataclass
 import os
+from dataclasses import dataclass
+
 from flask import Flask, render_template, request, redirect, make_response, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import inspect
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///test.db"
-db = SQLAlchemy(app)
 env_config = os.getenv("APP_SETTINGS", "config.DevelopmentConfig")
 app.config.from_object(env_config)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 
 
 @dataclass
@@ -45,7 +46,7 @@ def scan():
     if request.method == "POST":
         scanned_barcode = request.form["barcode"]
         production_line = request.form["productionLine"]
-        new_scan = Barcode(id=scanned_barcode,production_line=production_line)
+        new_scan = Barcode(id=scanned_barcode, production_line=production_line)
         try:
             db.session.add(new_scan)
             db.session.commit()
