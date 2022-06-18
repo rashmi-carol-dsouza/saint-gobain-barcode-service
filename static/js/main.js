@@ -348,10 +348,12 @@ $(function () {
     var code = result.codeResult.code;
     if (code !== lastScannedCode) {
       lastScannedCode = code;
+      let params = (new URL(document.location)).searchParams;
+      let productionLine = params.get("productionLine");
       var request = $.ajax({
         url: "/scan",
         method: "POST",
-        data: { barcode: code, productionLine: 1 },
+        data: { barcode: code, productionLine },
         dataType: "json",
       });
 
