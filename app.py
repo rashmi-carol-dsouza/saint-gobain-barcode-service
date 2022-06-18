@@ -14,9 +14,9 @@ db = SQLAlchemy(app)
 
 @dataclass
 class Barcode(db.Model):
-    id = db.Column(db.String(200), primary_key=True)
-    date_created = db.Column(db.DateTime(timezone=True), server_default=db.func.current_timestamp())
-    production_line = db.Column(db.String(200), nullable=False)
+    id = db.Column(db.String(50), primary_key=True)
+    date_created = db.Column(db.DateTime(timezone=True))
+    production_line = db.Column(db.String(50), nullable=False)
 
     def to_dict(self):
         return {c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs}
@@ -35,6 +35,7 @@ def landing_page():
     return render_template("landing_page.html")
 
 
+
 @app.route('/view_scans', methods=["GET"])
 def view_scans():
     all_barcodes = Barcode.query.order_by(Barcode.date_created).all()
@@ -46,7 +47,7 @@ def scan():
     if request.method == "POST":
         scanned_barcode = request.form["barcode"]
         production_line = request.form["productionLine"]
-        new_scan = Barcode(id=scanned_barcode, production_line=production_line)
+        new_scan = Barcode(id=scanned_barcode, production_line=production_line,date_created=db.func.current_timestamp())
         try:
             db.session.add(new_scan)
             db.session.commit()
@@ -63,7 +64,7 @@ def barcode():
     if request.method == "POST":
         scanned_barcode = request.form["barcode"]
         production_line = request.form["productionLine"]
-        new_scan = Barcode(id=scanned_barcode,production_line=production_line)
+        new_scan = Barcode(id=scanned_barcode, production_line=production_line)
         try:
             db.session.add(new_scan)
             db.session.commit()
