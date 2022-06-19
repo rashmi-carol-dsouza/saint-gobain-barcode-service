@@ -27,7 +27,7 @@ class Barcode(db.Model):
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template("loginsg.html")
 
 
 @app.route('/landing_page', methods=["POST", "GET"])
@@ -64,7 +64,7 @@ def barcode():
     if request.method == "POST":
         scanned_barcode = request.form["barcode"]
         production_line = request.form["productionLine"]
-        new_scan = Barcode(id=scanned_barcode, production_line=production_line)
+        new_scan = Barcode(id=scanned_barcode, production_line=production_line,date_created=db.func.current_timestamp())
         try:
             db.session.add(new_scan)
             db.session.commit()
