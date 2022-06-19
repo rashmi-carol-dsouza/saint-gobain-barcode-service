@@ -27,7 +27,7 @@ class Barcode(db.Model):
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template("loginsg.html")
 
 
 @app.route('/landing_page', methods=["POST", "GET"])
