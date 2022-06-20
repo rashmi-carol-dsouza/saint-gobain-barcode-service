@@ -17,7 +17,7 @@ db = SQLAlchemy(app)
 @dataclass
 class Barcode(db.Model):
     id = db.Column(db.String(50), primary_key=True)
-    date_created = db.Column(db.DateTime(timezone=True),default=datetime.now,onupdate=datetime.now)
+    date_created = db.Column(db.DateTime(timezone=True), default=datetime.now+2, onupdate=datetime.now+2)
     production_line = db.Column(db.String(50), nullable=False)
 
     def to_dict(self):
