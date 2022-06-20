@@ -2,6 +2,7 @@ import os
 from dataclasses import dataclass
 from datetime import datetime
 
+import sqlalchemy
 from flask import Flask, render_template, request, redirect, make_response, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import inspect, DATETIME
@@ -16,7 +17,7 @@ db = SQLAlchemy(app)
 @dataclass
 class Barcode(db.Model):
     id = db.Column(db.String(50), primary_key=True)
-    date_created = db.Column(db.DateTime(timezone=True),default=datetime.now,onupdate=datetime.now)
+    date_created = db.Column(db.DateTime(timezone=True),server_default=sqlalchemy.sql.func.now())#default=datetime.now,onupdate=datetime.now)
     production_line = db.Column(db.String(50), nullable=False)
 
     def to_dict(self):
