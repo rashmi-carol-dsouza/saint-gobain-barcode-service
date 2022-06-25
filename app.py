@@ -1,13 +1,19 @@
+import csv
+import io
 import os
 from dataclasses import dataclass
 from datetime import datetime
 
 import sqlalchemy
-from flask import Flask, render_template, request, redirect, make_response, jsonify
+from flask import Flask, render_template, request, redirect, make_response, jsonify, send_file, Response
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import inspect, DATETIME
+from sqlalchemy.connectors import pyodbc
+from sqlalchemy.dialects.postgresql import psycopg2
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 env_config = os.getenv("APP_SETTINGS", "config.DevelopmentConfig")
 app.config.from_object(env_config)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -60,6 +66,54 @@ def scan():
             return "There was an issue adding the code"
     else:
         return render_template("barcode.html")
+#
+# @app.route("/download")
+# def download_file():
+#     with open(r'C:\Users\Rashmi Dsouza\PycharmProjects\product.csv', 'w') as s_key:
+#         p = db.query.all()
+#         for i in p:
+#             # x16 = tuple(x15)
+#             csv_out = csv.writer(s_key)
+#             csv_out.writerow(p)
+#     return send_file(p, as_attachment=True)
+
+
+@app.route("/download_csv")
+def download_csv():
+    conn = None
+    cursor = None
+
+    try:
+        conn = psycopg2.connect("host=localhost dbname=db user=u password=p")
+
+        cursor = conn.cursor()
+
+        cursor.execute('SELECT id FROM table')
+        conn.commit()
+        result = cursor.fetchall()
+        #fetchone()
+
+        output = io.StringIO()
+        writer = csv.writer(output)
+
+        line = ['column1,column2']
+        writer.writerow(line)
+
+        for row in result:
+            line = [row[0] + ' , ' + row[1] + ' , ']
+            writer.writerow(line)
+
+        output.seek(0)
+
+        return Response(output, mimetype="text/csv",
+                        headers={"Content-Disposition": "attachment;filename=report.csv"})
+    except Exception as e:
+        print(e)
+    finally:
+        cursor.close()
+        conn.close()
+
+
 
 @app.route('/barcodes', methods=["POST", "GET"])
 def barcode():
