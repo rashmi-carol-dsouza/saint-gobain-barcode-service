@@ -11,6 +11,7 @@ from sqlalchemy import inspect, DATETIME
 from sqlalchemy.connectors import pyodbc
 from sqlalchemy.dialects.postgresql import psycopg2
 from flask_cors import CORS
+from pathlib import Path
 
 app = Flask(__name__)
 CORS(app)
@@ -47,7 +48,7 @@ def landing_page():
 @app.route('/view_scans', methods=["GET"])
 def view_scans():
     all_barcodes = Barcode.query.order_by(Barcode.date_created).all()
-    return render_template("view_scans.html", barcodes=all_barcodes)
+    return render_template("view_scans.html", barcodes=all_barcodes, feature_download_csv=app.config['FEATURE_DOWNLOAD_CSV'])
 
 
 @app.route('/scan', methods=["POST", "GET"])
@@ -66,53 +67,23 @@ def scan():
             return "There was an issue adding the code"
     else:
         return render_template("barcode.html")
-#
-# @app.route("/download")
-# def download_file():
-#     with open(r'C:\Users\Rashmi Dsouza\PycharmProjects\product.csv', 'w') as s_key:
-#         p = db.query.all()
-#         for i in p:
-#             # x16 = tuple(x15)
-#             csv_out = csv.writer(s_key)
-#             csv_out.writerow(p)
-#     return send_file(p, as_attachment=True)
-
 
 @app.route("/download_csv")
 def download_csv():
-    conn = None
-    cursor = None
-
-    try:
-        conn = psycopg2.connect("host=localhost dbname=db user=u password=p")
-
-        cursor = conn.cursor()
-
-        cursor.execute('SELECT id FROM table')
-        conn.commit()
-        result = cursor.fetchall()
-        #fetchone()
-
-        output = io.StringIO()
-        writer = csv.writer(output)
-
-        line = ['column1,column2']
-        writer.writerow(line)
-
-        for row in result:
-            line = [row[0] + ' , ' + row[1] + ' , ']
-            writer.writerow(line)
-
-        output.seek(0)
-
-        return Response(output, mimetype="text/csv",
-                        headers={"Content-Disposition": "attachment;filename=report.csv"})
-    except Exception as e:
-        print(e)
-    finally:
-        cursor.close()
-        conn.close()
-
+    Path("dist").mkdir(parents=True, exist_ok=True)
+    today = datetime.today().strftime('%Y_%m_%d')
+    filename = f"dist/Barcodes-{today}.csv"
+    with open(filename, 'w', newline='') as s_key:
+        fieldnames = ['id', 'date_created','production_line']
+        writer = csv.DictWriter(s_key, fieldnames=fieldnames)
+        all_barcodes = Barcode.query.all()
+        barcodes = []
+        for barcode in all_barcodes:
+            barcodes.append(barcode.to_dict())
+        writer.writeheader()
+        for i in barcodes:
+            writer.writerow(i)
+    return send_file(filename, as_attachment=True)
 
 
 @app.route('/barcodes', methods=["POST", "GET"])

@@ -12,7 +12,7 @@ class Config(object):
     CSRF_ENABLED = True
     SECRET_KEY = 'this-really-needs-to-be-changed'
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL').replace("postgres://", "postgresql://", 1)
-
+    FEATURE_DOWNLOAD_CSV = os.getenv('FEATURE_DOWNLOAD_CSV') == "ON"
 
 class ProductionConfig(Config):
     DEBUG = False

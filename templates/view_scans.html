@@ -3,9 +3,12 @@
 {% endblock %} {% block body %}
 <h1>Scan Records</h1>
 
+{% if feature_download_csv %}
+
 <a href="{{ url_for('download_csv') }}" style="margin-bottom: 10px; margin-left: 10px;" class="btn btn-primary" type="button">
-                        Download Csv  <i class="fa fa-file-csv"></i>
+                        Download CSV  <i class="fa fa-file-csv"></i>
                     </a>
+{% endif %}
 <br>
 <table class="table">
   <thead>
