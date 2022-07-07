@@ -48,6 +48,7 @@ def landing_page():
 @app.route('/view_scans', methods=["GET"])
 def view_scans():
     all_barcodes = Barcode.query.order_by(Barcode.date_created).all()
+    print()
     return render_template("view_scans.html", barcodes=all_barcodes,
                            feature_download_csv=app.config['FEATURE_DOWNLOAD_CSV'])
 
