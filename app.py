@@ -3,7 +3,6 @@ import io
 import os
 from dataclasses import dataclass
 from datetime import datetime
-import pytz
 
 import sqlalchemy
 from flask import Flask, render_template, request, redirect, make_response, jsonify, send_file, Response
@@ -29,9 +28,7 @@ class Barcode(db.Model):
     production_line = db.Column(db.String(50), nullable=False)
 
     def to_dict(self):
-        b_dict = {c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs}
-        b_dict.date_created = pytz.timezone('Europe/Paris').localize(b_dict.date_created)
-        return b_dict
+        return {c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs}
 
     def __repr__(self):
         return '<Barcode %r' % self.id
