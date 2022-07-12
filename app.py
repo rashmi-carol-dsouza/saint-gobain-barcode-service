@@ -40,39 +40,8 @@ class Barcode(db.Model):
 
 @app.route('/')
 def index():
-    return render_template("loginsg.html")
+    return redirect("https://datatrack.vercel.app/", code=302)
 
-
-@app.route('/landing_page', methods=["POST", "GET"])
-def landing_page():
-    return render_template("landing_page.html")
-
-
-
-@app.route('/view_scans', methods=["GET"])
-def view_scans():
-    all_barcodes = Barcode.query.order_by(Barcode.date_created).all()
-    print()
-    return render_template("view_scans.html", barcodes=all_barcodes,
-                           feature_download_csv=app.config['FEATURE_DOWNLOAD_CSV'])
-
-
-@app.route('/scan', methods=["POST", "GET"])
-def scan():
-    if request.method == "POST":
-        scanned_barcode = request.form["barcode"]
-        production_line = request.form["productionLine"]
-        new_scan = Barcode(id=scanned_barcode, production_line=production_line,date_created=db.func.current_timestamp())
-        try:
-            db.session.add(new_scan)
-            db.session.commit()
-            return make_response(jsonify([{'msg': "success"}]), 201)
-            return redirect("/")
-        except Exception as inst:
-            print(inst)
-            return "There was an issue adding the code"
-    else:
-        return render_template("barcode.html")
 
 @app.route("/download_csv")
 def download_csv():
@@ -112,6 +81,7 @@ def barcode():
         for barcode in all_barcodes:
             barcodes.append(barcode.to_dict())
         return jsonify(barcodes)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
