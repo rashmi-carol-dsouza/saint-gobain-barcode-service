@@ -31,7 +31,7 @@ class Barcode(db.Model):
     def to_dict(self):
         b_dict = {c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs}
         date_created = b_dict['date_created']
-        b_dict['date_created'] = pytz.timezone('Europe/Paris').localize(date_created).strftime('%Y-%m-%d %H:%M:%S %Z')
+        b_dict['date_created'] = pytz.timezone('Europe/Paris').localize(date_created).strftime('%Y-%m-%d %H:%M:%S')
         return b_dict
 
     def __repr__(self):
